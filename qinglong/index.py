@@ -66,5 +66,4 @@ ql = ql(url=os.environ.get("ql_url"),
         client_id=os.environ.get("client_id"),
         client_secret=os.environ.get("client_secret"),
         env_name="JD_COOKIE")
-ql.del_env()
 ql.change_env()
