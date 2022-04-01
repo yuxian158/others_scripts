@@ -2,6 +2,7 @@ import json
 import os
 import requests
 
+
 class ql():
     def __init__(self, url, post, client_id, client_secret, env_name):
         self.url = f"http://{url}:{post}"
@@ -44,6 +45,21 @@ class ql():
             data = json.dumps(data)
             print(self.s.post(url=url, data=data))
 
+    def change_env(self):
+        new_env = os.environ.get(self.env_name)
+        new_env_list = new_env.split("&")
+        url = f"{self.url}/open/envs"
+        id_list = self.get_env()
+        for x, y in zip(new_env_list, id_list):
+            data = {
+                "value": x,
+                "name": self.env_name,
+                "remarks": "",
+                "id": y
+            }
+            print(f"将id={y}改为{x}")
+            self.s.put(url=url, data=data)
+
 
 ql = ql(url=os.environ.get("ql_url"),
         post=os.environ.get("ql_post"),
@@ -51,4 +67,4 @@ ql = ql(url=os.environ.get("ql_url"),
         client_secret=os.environ.get("client_secret"),
         env_name="JD_COOKIE")
 ql.del_env()
-ql.add_env()
+ql.change_env()
