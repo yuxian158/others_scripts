@@ -57,6 +57,7 @@ class ql():
                 "remarks": "",
                 "id": y
             }
+            data=json.dumps(data)
             print(f"将id={y}改为{x}")
             self.s.put(url=url, data=data)
 
